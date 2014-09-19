@@ -1,0 +1,89 @@
+doctype html
+html
+  head
+    script(src="http://cdn.pubnub.com/pubnub.min.js", type='text/javascript')
+    script(src='bower_components/angular/angular.js', type='text/javascript')
+    script(src='bower_components/sopro-material/js/angular-material.js', type='text/javascript')
+    script(src='bower_components/angular-animate/angular-animate.js', type='text/javascript')
+    script(src="bower_components/pubnub-angular/lib/pubnub-angular.js", type='text/javascript')
+
+    script(type='text/javascript', src='bower_components/jquery/dist/jquery.min.js')
+    script(src='panic.js', type='text/javascript')
+    link(href='bower_components/sopro-material/css/angular-material.css', rel='stylesheet')
+    link(href='bower_components/sopro-material/css/sopro-material.css', rel='stylesheet')
+
+    script(type='text/javascript').
+      function hidePanicBanner(){
+        $('.panicReceivedBanner').hide();
+      }
+      $(document).ready(function(){
+        //$('body').css('background-color', 'green')
+      });
+      function makeTrusted(){
+        //href="javascript:CCPEVE.requestTrust('http://localhost:3000')"
+        CCPEVE.requestTrust('http://localhost:3000');
+        $('.trustBanner').hide();
+        $('.refreshBanner').css('display', 'block');
+      }
+      function refresh(){
+        window.location.reload();
+      }
+    style.
+      .banner{
+        display: block;
+        background-color: #E83F0C;
+        color: white;
+        font-family: Roboto, Arial, sans-serif;
+        text-align: center;
+        min-height: 60px;
+        line-height: 60px;
+        border: 1px white solid;
+        border-radius: 4px;
+        margin: 4px;
+        cursor: pointer;
+      }
+
+      .hidden{
+        display: none;
+      }
+
+      #panicButton{
+        min-height: 100px;
+        min-width: 100px;
+        line-height: 100px;
+        background-color: #FF0000;
+        border-radius: 50px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        font-size: 1.2em;
+        display: inline-block;
+      }
+  body(
+  ng-app="panic" 
+  ng-controller="panicCtrl"
+  layout="vertical"
+  layout-fill
+  data-is-trusted=locals.isTrusted
+  data-panic-received=locals.panicReceived
+  data-pilot-name = locals.pilot.name || ""
+  data-pilot-loc = locals.pilot.loc || ""
+  )
+    if(!locals.isTrusted)
+      a.banner.trustBanner(
+      title="Trust..."
+      href="javascript:makeTrusted()"
+      ) Welcome to PANIC. Click here to grant trust to this app.
+
+      a.banner.refreshBanner.hidden(
+      href="javascript:refresh()"
+      title="Refresh..."
+      ) Click to refresh after granting trust.
+
+    if(locals.panicReceived)
+      a.banner.panicReceivedBanner(
+      href="javascript:hidePanicBanner()"
+      title="Hide..."
+      ) Your panic request was received. Standby for help!
+    a#panicButton(ng-click="panic($event)") PANIC
+    section#text

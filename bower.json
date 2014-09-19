@@ -1,0 +1,16 @@
+{
+  "name": "panic-pubnub",
+  "description": "A panic button that uses PubNub",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocietyPro/panic-pubnub.git"
+  },
+  "dependencies": {
+    "sopro-material": "https://github.com/sopro-components/sopro-material.git#0.1.5",
+    "jquery": "1.x",
+    "roboto": "https://github.com/sopro-components/roboto.git#0.1.0",
+    "pubnub-angular": "~1.1.0"
+  },
+  "devDependencies": {}
+}
