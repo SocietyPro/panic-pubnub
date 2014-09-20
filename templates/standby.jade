@@ -1,27 +1,15 @@
-doctype html
-html
-  head
-    script(src="http://cdn.pubnub.com/pubnub.min.js", type='text/javascript')
-    script(src='bower_components/angular/angular.js', type='text/javascript')
-    script(src='bower_components/sopro-material/js/angular-material.js', type='text/javascript')
-    script(src='bower_components/angular-animate/angular-animate.js', type='text/javascript')
-    script(src="bower_components/pubnub-angular/lib/pubnub-angular.js", type='text/javascript')
+extends layout
+block append scripts
+  script(src='standby.js', type='text/javascript')
+block append stylesheets
+  link(href='standby.css', rel='stylesheet')
 
-    script(type='text/javascript', src='bower_components/jquery/dist/jquery.min.js')
-    script(src='standby.js', type='text/javascript')
-    link(href='bower_components/sopro-material/css/angular-material.css', rel='stylesheet')
-    link(href='bower_components/sopro-material/css/sopro-material.css', rel='stylesheet')
-    link(href='standby.css', rel='stylesheet')
-
-  body(
+block append body
+  section#standby(
   ng-app="standby" 
   ng-controller="standbyCtrl"
   layout="vertical"
   layout-fill
-  data-is-trusted=locals.isTrusted
-  data-panic-received=locals.panicReceived
-  data-pilot-name = locals.pilot.name || ""
-  data-pilot-system = locals.pilot.system || ""
   )
     if(!locals.isTrusted)
       div.banner.trustBanner(

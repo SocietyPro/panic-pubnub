@@ -6,13 +6,19 @@ html
     script(src='bower_components/sopro-material/js/angular-material.js', type='text/javascript')
     script(src='bower_components/angular-animate/angular-animate.js', type='text/javascript')
     script(src="bower_components/pubnub-angular/lib/pubnub-angular.js", type='text/javascript')
+    script(src='bower_components/jquery/dist/jquery.min.js', type='text/javascript')
+    script(src='panic-main.js', type='text/javascript')
+    block scripts
 
-    script(type='text/javascript', src='bower_components/jquery/dist/jquery.min.js')
-    script(src='standby.js', type='text/javascript')
+
     link(href='bower_components/sopro-material/css/angular-material.css', rel='stylesheet')
     link(href='bower_components/sopro-material/css/sopro-material.css', rel='stylesheet')
-    link(href='standby.css', rel='stylesheet')
-    block head
-  body
-    block body
+    block stylesheets
 
+  body(
+  data-is-trusted=locals.isTrusted
+  data-panic-received=locals.panicReceived
+  data-pilot-name = locals.pilot.name || ""
+  data-pilot-system = locals.pilot.system || ""
+  )
+    block body

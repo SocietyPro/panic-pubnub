@@ -1,0 +1,30 @@
+.banner{
+  display: block;
+  background-color: #E83F0C;
+  color: white;
+  font-family: Roboto, Arial, sans-serif;
+  text-align: center;
+  min-height: 60px;
+  line-height: 60px;
+  border: 1px white solid;
+  border-radius: 4px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
+
+#panicButton{
+  min-height: 100px;
+  min-width: 100px;
+  line-height: 100px;
+  background-color: #FF0000;
+  border-radius: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  display: inline-block;
+}
