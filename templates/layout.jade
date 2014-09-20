@@ -13,12 +13,37 @@ html
 
     link(href='bower_components/sopro-material/css/angular-material.css', rel='stylesheet')
     link(href='bower_components/sopro-material/css/sopro-material.css', rel='stylesheet')
+    link(href='panic-main.css', rel='stylesheet')
     block stylesheets
 
   body(
   data-is-trusted=locals.isTrusted
+  data-is-igb=locals.isIGB
   data-panic-received=locals.panicReceived
   data-pilot-name = locals.pilot.name || ""
   data-pilot-system = locals.pilot.system || ""
+  ng-app="panicMain"
+  ng-controller="panicMainCtrl"
   )
-    block body
+    #darkBG(
+      layout="vertical"
+      layout-fill
+    )
+      if(!locals.isTrusted)
+        div.banner.trustBanner(
+        title="Trust..."
+        ng-click="makeTrusted()"
+        ng-show="!trusted && !nonIGB"
+        ) Grant IGB trust to auto populate name and location: click here
+
+        div.banner.refreshBanner.hidden(
+        title="Refresh..."
+        ng-click="refresh()"
+        ) Click to refresh after granting trust
+
+        div.banner.nonIGB.hidden(
+        title="Designed for EVE's In Game Browser"
+        ng-show='nonIGB'
+        ) Best used in EVE's In Game Browser
+
+      block body

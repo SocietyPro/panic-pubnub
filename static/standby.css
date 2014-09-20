@@ -1,21 +1,4 @@
-.banner{
-  display: block;
-  background-color: #E83F0C;
-  color: white;
-  font-family: Roboto, Arial, sans-serif;
-  text-align: center;
-  min-height: 60px;
-  line-height: 60px;
-  border: 1px white solid;
-  border-radius: 4px;
-  margin: 4px;
-  cursor: pointer;
-}
-
-.hidden{
-  display: none;
-}
 #panicInfo{
   background-color: red;
+  color: white;
 }
-

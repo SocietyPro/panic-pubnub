@@ -1,20 +1,22 @@
-var panicModule = angular.module("panic", ['ngMaterial', 'pubnub.angular.service'])
+//angular.module("panic", ['ngMaterial', 'pubnub.angular.service'])
+panicMain
 .controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
 ,function ($scope, $rootScope, $element, PubNub) {
+  console.log('panic controller');
   // Prepare to send panics and listen for responses:
-  PubNub.ngSubscribe({ channel: 'backup' })
   PubNub.ngGrant({
     channel: 'backup',
-    read: false,
-    write: true,
+    read: true,
+    write: false,
     callback: function() {
       return console.log("Waiting for panic", arguments);
     }
   });
+  PubNub.ngSubscribe({ channel: 'backup' })
 
   PubNub.ngGrant({
     channel: 'panic',
-    read: false,
+    read: true,
     write: true,
     callback: function() {
       return console.log("Waiting for panic", arguments);
@@ -26,7 +28,8 @@ var panicModule = angular.module("panic", ['ngMaterial', 'pubnub.angular.service
     console.log('got a backup response:', payload);    
   });
 
-  $scope.broadcastPanic = function (note) {
+  $scope.broadcastPanic = function () {
+    var note = prompt('Describe your situation:', 'HALP!');
     PubNub.ngPublish({
       channel: 'panic',
       message: {

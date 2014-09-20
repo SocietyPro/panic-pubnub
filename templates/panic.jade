@@ -11,23 +11,7 @@ block append body
   layout="vertical"
   layout-fill
   )
-    if(!locals.isTrusted)
-      a.banner.trustBanner(
-      title="Trust..."
-      href="javascript:makeTrusted()"
-      ) Welcome to PANIC. Click here to grant trust to this app.
-
-      a.banner.refreshBanner.hidden(
-      href="javascript:refresh()"
-      title="Refresh..."
-      ) Click to refresh after granting trust.
-
-    a#panicButton(ng-click="panic($event)") PANIC
+    div#panicButton(ng-click="broadcastPanic()") PANIC
     section#text
       span.block#sent Your panic was sent...
       div#responses(ng-repeat="response in responses")
-      if(locals.panicReceived)
-      a.banner.panicReceivedBanner(
-      href="javascript:hidePanicBanner()"
-      title="Hide..."
-      ) Your panic request was received. Standby for help!

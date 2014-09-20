@@ -1,30 +1,23 @@
-.banner{
-  display: block;
-  background-color: #E83F0C;
-  color: white;
-  font-family: Roboto, Arial, sans-serif;
-  text-align: center;
-  min-height: 60px;
-  line-height: 60px;
-  border: 1px white solid;
-  border-radius: 4px;
-  margin: 4px;
-  cursor: pointer;
-}
-
-.hidden{
-  display: none;
+section#panic{
+  position: relative;
 }
 
 #panicButton{
-  min-height: 100px;
-  min-width: 100px;
-  line-height: 100px;
+  min-height: 120px;
+  min-width: 120px;
+  line-height: 120px;
   background-color: #FF0000;
-  border-radius: 50px;
+  border-radius: 60px;
   font-weight: bold;
   text-align: center;
   color: white;
-  font-size: 1.2em;
-  display: inline-block;
+  font-size: 40px;
+  font-family: RobotoSlab, Inconsolata, Consolas, monospace;
+  font-weight: bold;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -60px;
+  margin-top: -60px;
 }

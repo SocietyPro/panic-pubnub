@@ -23,8 +23,12 @@ app.all('*', function(req, res, next){
   if(isTrusted){
     console.log('we have trust');
     res.locals.pilot.name = req.headers.eve_charname;
-    res.locals.pilot.system = eve_solarsystemname;
+    res.locals.pilot.system = req.headers.eve_solarsystemname;
   }
+  res.locals.isIGB = 
+    req.headers.eve_trusted != "" 
+    ? true : false;
+
   req.session.isTrusted = isTrusted;
   res.locals.isTrusted = isTrusted;
 

@@ -1,0 +1,38 @@
+body{
+  background-color: #444444;
+  background-image: repeating-linear-gradient(
+    45deg, transparent, 
+    transparent 10px, 
+    rgba(248, 194, 18, 1) 10px, 
+    rgba(248, 194, 18, 1) 20px);
+  padding: 12px;
+}
+#darkBG{
+  background-color: #444444;
+}
+nav{
+  display: block;
+  color: #dddddd;
+  font-family: RobotoSlab, Inconsolata, Consolas, monospace;
+  font-weight: bold;
+  font-size: 60px;
+  min-height: 60px;
+  line-height: 60px;
+}
+
+.banner{
+  display: block;
+  background-color: rgba(232,63,12, 0.6);
+  color: white;
+  font-family: Roboto, Arial, sans-serif;
+  text-align: center;
+  min-height: 40px;
+  line-height: 40px;
+  border: 1px white solid;
+  margin: 8px 4px;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
