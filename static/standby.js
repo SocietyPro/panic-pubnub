@@ -1,11 +1,57 @@
 var standbyModule = angular.module("standby", ['ngMaterial', 'pubnub.angular.service'])
 .controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
 ,function ($scope, $rootScope, $element, PubNub) {
-  $scope.pilot = {};
-  $scope.pilot.name = $('body').attr('data-pilot-name') || 'Unknown Pilot';
-  $scope.pilot.loc = $('body').attr('data-pilot-loc') || 'Unknown System';
-  $scope.panicTime = null;
 
+  //
+  // Scope Variables
+  //
+  $scope.CCPEVE = CCPEVE || null;
+  $scope.panicking = false;
+
+  $scope.pilotName = $('body').attr('data-pilot-name') || 'Unknown Pilot';
+  $scope.system = $('body').attr('data-pilot-system') || 'Unknown System';
+  $scope.panicDate = null;
+
+
+  //
+  // Scope Methods
+  //
+  $scope.hidePanicBanner = function(){
+    $('.panicReceivedBanner').hide();
+  }
+  $scope.makeTrusted = function(){
+    $scope.CCPEVE.requestTrust('http://localhost:3000');
+    $('.trustBanner').hide();
+    $('.refreshBanner').css('display', 'block');
+  }
+  $scope.refresh = function(){
+    window.location.reload();
+  }
+
+  $scope.respond = function (response) {
+    if(!response){
+      sendBackupMessage({backup: false});
+    } else {
+      sendBackupMessage({
+        backup: true,
+        pilot: $scope.name,
+        fromSystem: $scope.system,
+      })
+    }
+  }
+  $scope.togglePanic = function(flag){
+    if(flag===undefined){
+      $scope.panicking = !$scope.panicking;
+    } else {
+      $scope.panicking = flag;
+    }
+  }
+
+  function sendBackupMessage (obj) {
+    // body...
+  }
+
+  // Init code
   PubNub.init({
     publish_key:'pub-c-bf1cbccf-f8bf-412a-8e2c-0930f6d87453',
     subscribe_key:'sub-c-5dfe513c-3fbe-11e4-98c8-02ee2ddab7fe',
@@ -15,27 +61,16 @@ var standbyModule = angular.module("standby", ['ngMaterial', 'pubnub.angular.ser
   });
   
   PubNub.ngGrant({
-    channel: 'rvb_ganked',
+    channel: 'panic',
     read: true,
-    write: true,
+    write: false,
     callback: function() {
-      return console.log("channel all set", arguments);
+      return console.log("Waiting for panic", arguments);
     }
   });
 
-  $scope.testVar = 'Test Scope Variable';
-  $scope.panicking = false;
-  $scope.panic = function(){
-    $event.preventDefault();
-    $scope.panicking = true;
-  }
-  $scope.stopPanicking = function(data){
-    $scope.panicking = false;
-    if(data.backup){
-      sendBackupMessage();
-    }
-  };
-  $scope.togglePanic = function(){
-    $scope.panicking = !$scope.panicking;
-  }
+  PubNub.ngSubscribe({
+    channel: 'panic'
+  });
+
 }]);
