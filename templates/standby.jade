@@ -24,10 +24,10 @@ block append body
       hidden
       layout="vertical" 
       layout-align="equal-space"
+      ng-hide="!panicking.panicking"
       )
         h1 PANIC!
-        span panicking = {{panicking}}
-        //ng-hide="!panicking"
+        span panicking = {{panicking.panicking}}
         span(block ng-model="panic.name")
         span(block ng-model="panic.time")
         span(block ng-model="panic.system")

@@ -1,8 +1,9 @@
 //angular.module("panic", ['ngMaterial', 'pubnub.angular.service'])
 panicMain
-.controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
-,function ($scope, $rootScope, $element, PubNub) {
+.controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
+,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
   console.log('panic controller');
+  $scope.panicking = PanicStateService;
   // Prepare to send panics
 
   PubNub.ngGrant({

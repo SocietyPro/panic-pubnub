@@ -1,7 +1,8 @@
 //angular.module("standby", ['ngMaterial', 'pubnub.angular.service'])
 panicMain
-.controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
-,function ($scope, $rootScope, $element, PubNub) {
+.controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
+,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
+  $scope.panicking = PanicStateService;
   console.log('standby controller');
   // Prepare to send backup response:
   PubNub.ngGrant({
@@ -30,10 +31,11 @@ panicMain
     // payload contains message, channel, env...
     console.log('someone panicked:', payload); 
     //$scope.togglePanic(true);
-    console.log($scope.togglePanic);
-    $scope.togglePanic(true);
-    $scope.panic = payload.message;
-    console.log('standby.js: $scope.panicking', $scope.panicking)
+    //console.log($scope.togglePanic);
+    PanicStateService.start(payload.message);
+    //$scope.togglePanic(true);
+    //$scope.panic = payload.message;
+    //console.log('standby.js: $scope.panicking', $scope.panicking)
   });
 
   // Send backup response:
