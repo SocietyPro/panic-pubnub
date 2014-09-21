@@ -2,7 +2,7 @@
 panicMain
 .controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
 ,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
-  $scope.panicking = PanicStateService;
+  $scope.panicking = PanicStateService; // Apparently setting this equal to the Service object auto-watches it
   console.log('standby controller');
   // Prepare to send backup response:
   PubNub.ngGrant({
@@ -30,9 +30,10 @@ panicMain
   $rootScope.$on(PubNub.ngMsgEv('panic'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('someone panicked:', payload); 
+    PanicStateService.start(payload.message);
+
     //$scope.togglePanic(true);
     //console.log($scope.togglePanic);
-    PanicStateService.start(payload.message);
     //$scope.togglePanic(true);
     //$scope.panic = payload.message;
     //console.log('standby.js: $scope.panicking', $scope.panicking)
@@ -41,9 +42,6 @@ panicMain
   // Send backup response:
 
   $scope.sendBackupMessage = function (data) {
-    if(data.backup === true){
-      var note = prompt('ETA and ship(s) responding?', 'OMW');
-    }
     PubNub.ngPublish({
       channel: 'backup',
       message: {
@@ -51,18 +49,18 @@ panicMain
         responder: $scope.pilotName,
         system: $scope.system,
         time: new Date().valueOf,
-        note: note,
       },
     }); 
+    PanicStateService.stop();
   }
 
-  // Set button shortcuts to 'yes' and 'no' responses:
+  // Used by 'yes' and 'no' button responses:
   $scope.respond = function (going) {
     if(!going){
       $scope.sendBackupMessage({backup: false});
     } else {
       $scope.sendBackupMessage({backup: true});
     }
-    $scope.togglePanic(false)
+    //$scope.togglePanic(false)
   }
 }]);

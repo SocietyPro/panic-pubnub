@@ -15,16 +15,16 @@ block append body
     layout="vertical" 
     layout-align="space-between"
     )
+      //ng-hide="panicking.panicking"
       div#allClear(
       flex 
       )
         h1 All Clear
+      //ng-hide="!panicking.panicking"
       div#panicInfo(
       flex 
-      hidden
       layout="vertical" 
       layout-align="equal-space"
-      ng-hide="!panicking.panicking"
       )
         h1 PANIC!
         span panicking = {{panicking.panicking}}

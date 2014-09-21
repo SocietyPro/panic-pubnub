@@ -7,19 +7,19 @@
   display: block;
 }
 
-/*
 #panicInfo{
   display: none;
 }
-*/
 
 body[panicking] #allClear{
   display: none;
 }
+
 body[panicking] #panicInfo{
 /*
   display: block;
 */
+  display: flex;
   background-color: rgba(255,0,0,0);
   -webkit-animation: glow 1s;
   -webkit-animation-iteration-count: infinite;

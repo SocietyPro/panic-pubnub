@@ -12,10 +12,16 @@ panicMain.service('PanicStateService', function ($rootScope) {
       panicking: panicking,
       details: details,
       start: function (payloadMessage) {
+        $('body').attr('panicking', 'true' )
+        console.log('PanicStateService.start()')
         panicking = true; 
         details = payloadMessage || {};
       },
-      stop: function () { panicking = false; },
+      stop: function () { 
+        $('body').removeAttr('panicking');
+        console.log('PanicStateService.stop()')
+        panicking = false; 
+      },
       toggle: function () { panicking = !panicking; },
     };
 });
@@ -30,8 +36,7 @@ panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubN
   $scope.CCPEVE = CCPEVE;
   $scope.panicking = PanicStateService;
   $scope.nonIGB = !$('body').attr('data-is-igb');
-  $scope.pilotName = $('body').attr('data-pilot-name') || prompt('Your name?', 'Unknown Pilot');
-  $scope.system = $('body').attr('data-pilot-system') || prompt('Your location?', 'Unknown System');
+  $scope.pilotName = $('body').attr('data-pilot-name') || prompt('Your name?', 'Pilot '+ Math.floor(Math.random()*10000));
   $scope.panicDate = null;
 
 
@@ -53,6 +58,7 @@ panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubN
     window.location.reload();
   }
   
+  /*
   $scope.togglePanic = function(flag){
     console.log('togglePanic', flag, PanicStateService.panicking);
     if(flag===undefined){
@@ -69,6 +75,7 @@ panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubN
     }
     console.log('new panicking value:', $scope.panicking);
   }
+  */
 
   // Init code
   PubNub.init({
