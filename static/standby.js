@@ -33,6 +33,7 @@ panicMain
     console.log($scope.togglePanic);
     $scope.togglePanic(true);
     $scope.panic = payload.message;
+    console.log('standby.js: $scope.panicking', $scope.panicking)
   });
 
   // Send backup response:

@@ -6,7 +6,6 @@ block append stylesheets
 
 block append body
   section#standby(
-  ng-app="standby" 
   ng-controller="standbyCtrl"
   layout="vertical"
   layout-fill
@@ -27,6 +26,8 @@ block append body
       layout-align="equal-space"
       )
         h1 PANIC!
+        span panicking = {{panicking}}
+        //ng-hide="!panicking"
         span(block ng-model="panic.name")
         span(block ng-model="panic.time")
         span(block ng-model="panic.system")

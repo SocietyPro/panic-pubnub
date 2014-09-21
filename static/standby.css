@@ -7,17 +7,20 @@
   display: block;
 }
 
+/*
 #panicInfo{
   display: none;
 }
+*/
 
 body[panicking] #allClear{
   display: none;
 }
-
 body[panicking] #panicInfo{
-  background-color: rgba(255,0,0,0);
+/*
   display: block;
+*/
+  background-color: rgba(255,0,0,0);
   -webkit-animation: glow 1s;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-delay: 1s;
@@ -25,7 +28,6 @@ body[panicking] #panicInfo{
   animation-iteration-count: infinite;
   animation-delay: 1s;
 }
-
 #panicInfo h1{
   -webkit-animation: pulse 1s;
   -webkit-animation-iteration-count: infinite;

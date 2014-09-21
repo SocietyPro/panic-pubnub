@@ -44,11 +44,12 @@ var panicMain = angular.module("panicMain", ['ngMaterial', 'pubnub.angular.servi
       $scope.panicking = !$scope.panicking;
     } else if(flag===true) {
       $scope.panicking = true;
-      $('body').attr('panicking', 'true' )
+      //.$('body').attr('panicking', 'true' )
     } else {
-      $('body').removeAttr('panicking');
+      //$('body').removeAttr('panicking');
       $scope.panicking = false;
     }
+    console.log('new panicking value:', $scope.panicking);
   }
 
   // Init code
