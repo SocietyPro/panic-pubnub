@@ -11,16 +11,39 @@ block append body
   layout="vertical"
   layout-fill
   )
-    div#container(layout="vertical" flex)
-      div#statusContainer(flex layout="vertical" layout-align="space-between")
-        div#allClear(flex ng-hide="panicking")
-          h1 All Clear
-        div#panicInfo(flex layout="vertical" layout-align="equal-space" ng-hide="!panicking")
-          span(block ng-model="panic.name")
-          span(block ng-model="panic.time")
-          span(block ng-model="panic.system")
-          span(block ng-model="panic.msg")
-      div#responseContainer(layout="horizontal" layout-padding)
-        input(flex type="button", value="Stand Down", ng-click="respond(false)")
-        input(flex type="button", value="Send Backup", ng-click="respond(true)")
-        input(flex type="button", value="Toggle Panic", ng-click="togglePanic()")
+    div#statusContainer(
+    flex
+    layout="vertical" 
+    layout-align="space-between"
+    )
+      div#allClear(
+      flex 
+      )
+        h1 All Clear
+      div#panicInfo(
+      flex 
+      hidden
+      layout="vertical" 
+      layout-align="equal-space"
+      )
+        h1 PANIC!
+        span(block ng-model="panic.name")
+        span(block ng-model="panic.time")
+        span(block ng-model="panic.system")
+        span(block ng-model="panic.msg")
+    div#responseContainer(
+    layout="horizontal"
+    layout-padding
+    )
+      input#standDown(
+      flex,
+      type="button", 
+      value="Stand Down", 
+      ng-click="respond(false)"
+      )
+      input#sendBackup(
+      flex,
+      type="button", 
+      value="Send Backup", 
+      ng-click="respond(true)",
+      )

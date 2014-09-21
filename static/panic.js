@@ -3,16 +3,7 @@ panicMain
 .controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
 ,function ($scope, $rootScope, $element, PubNub) {
   console.log('panic controller');
-  // Prepare to send panics and listen for responses:
-  PubNub.ngGrant({
-    channel: 'backup',
-    read: true,
-    write: false,
-    callback: function() {
-      return console.log("Waiting for panic", arguments);
-    }
-  });
-  PubNub.ngSubscribe({ channel: 'backup' })
+  // Prepare to send panics
 
   PubNub.ngGrant({
     channel: 'panic',
@@ -23,11 +14,25 @@ panicMain
     }
   });
 
+  //Prepare to listen for backup responses:
+  PubNub.ngGrant({
+    channel: 'backup',
+    read: true,
+    write: false,
+    callback: function() {
+      return console.log("Waiting for panic", arguments);
+    }
+  });
+
+  // Listen for backup responses:
+  PubNub.ngSubscribe({ channel: 'backup' })
+
   $rootScope.$on(PubNub.ngMsgEv('backup'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('got a backup response:', payload);    
   });
 
+  // Send panics:
   $scope.broadcastPanic = function () {
     var note = prompt('Describe your situation:', 'HALP!');
     PubNub.ngPublish({

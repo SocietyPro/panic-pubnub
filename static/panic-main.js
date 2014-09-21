@@ -14,7 +14,7 @@ var panicMain = angular.module("panicMain", ['ngMaterial', 'pubnub.angular.servi
   $scope.panicking = false;
   $scope.panic = {};
   $scope.nonIGB = !$('body').attr('data-is-igb');
-  $scope.pilot = {};
+  //$scope.pilot = {};
   $scope.pilotName = $('body').attr('data-pilot-name') || prompt('Your name?', 'Unknown Pilot');
   $scope.system = $('body').attr('data-pilot-system') || prompt('Your location?', 'Unknown System');
   $scope.panicDate = null;
@@ -39,13 +39,17 @@ var panicMain = angular.module("panicMain", ['ngMaterial', 'pubnub.angular.servi
   }
   
   $scope.togglePanic = function(flag){
+    console.log('togglePanic', flag, $scope.panicking);
     if(flag===undefined){
       $scope.panicking = !$scope.panicking;
+    } else if(flag===true) {
+      $scope.panicking = true;
+      $('body').attr('panicking', 'true' )
     } else {
-      $scope.panicking = flag;
+      $('body').removeAttr('panicking');
+      $scope.panicking = false;
     }
   }
-
 
   // Init code
   PubNub.init({

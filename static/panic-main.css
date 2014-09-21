@@ -1,3 +1,7 @@
+.hidden{
+  display: none;
+}
+
 body{
   background-color: #444444;
   background-image: repeating-linear-gradient(
@@ -10,16 +14,6 @@ body{
 #darkBG{
   background-color: #444444;
 }
-nav{
-  display: block;
-  color: #dddddd;
-  font-family: RobotoSlab, Inconsolata, Consolas, monospace;
-  font-weight: bold;
-  font-size: 60px;
-  min-height: 60px;
-  line-height: 60px;
-}
-
 .banner{
   display: block;
   background-color: rgba(232,63,12, 0.6);
@@ -32,7 +26,6 @@ nav{
   margin: 8px 4px;
   cursor: pointer;
 }
-
-.hidden{
+.banner.hidden{
   display: none;
 }

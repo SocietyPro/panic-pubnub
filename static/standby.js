@@ -3,17 +3,7 @@ panicMain
 .controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub'
 ,function ($scope, $rootScope, $element, PubNub) {
   console.log('standby controller');
-  // Prepare to listen for panics and respond:
-  PubNub.ngGrant({
-    channel: 'panic',
-    read: true,
-    write: false,
-    callback: function() {
-      return console.log("Waiting for panic", arguments);
-    }
-  });
-  PubNub.ngSubscribe({ channel: 'panic' })
-
+  // Prepare to send backup response:
   PubNub.ngGrant({
     channel: 'backup',
     read: true,
@@ -23,15 +13,29 @@ panicMain
     }
   });
 
+  // Prepare to listen for panics:
+  PubNub.ngGrant({
+    channel: 'panic',
+    read: true,
+    write: false,
+    callback: function() {
+      return console.log("Waiting for panic", arguments);
+    }
+  });
 
+  // Listen for panics:
+  PubNub.ngSubscribe({ channel: 'panic' })
 
   $rootScope.$on(PubNub.ngMsgEv('panic'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('someone panicked:', payload); 
     //$scope.togglePanic(true);
-    $scope.togglePanic();
+    console.log($scope.togglePanic);
+    $scope.togglePanic(true);
     $scope.panic = payload.message;
   });
+
+  // Send backup response:
 
   $scope.sendBackupMessage = function (data) {
     if(data.backup === true){
@@ -49,11 +53,12 @@ panicMain
     }); 
   }
 
+  // Set button shortcuts to 'yes' and 'no' responses:
   $scope.respond = function (going) {
     if(!going){
-      sendBackupMessage({backup: false});
+      $scope.sendBackupMessage({backup: false});
     } else {
-      sendBackupMessage({backup: true});
+      $scope.sendBackupMessage({backup: true});
     }
     $scope.togglePanic(false)
   }
