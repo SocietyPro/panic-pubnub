@@ -7,22 +7,32 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options:{
-          targetDir: 'static/bower_components',
+          //targetDir: 'static/bower_components',
           layout: 'byComponent',
-          //copy: true,
-          cleanTargetDir: true,
-          cleanBowerDir: true,
+          copy: false,
+          //cleanTargetDir: true,
+          //cleanBowerDir: true,
           verbose: true,
         }
       },
     },
+    copy: {
+      bowerFiles: {
+        files:[
+          // includes files within path and its sub-directories
+          {expand: true, src: ['bower_components/**'], dest: 'static'},
+        ]
+      }
+    }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   
   // Default task.
   grunt.registerTask('default', [
     'bower:install',
+    'copy:bowerFiles',
   ]);
 };
