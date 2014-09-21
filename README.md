@@ -7,7 +7,7 @@ Usage
 -----
 
     $ npm install
-    $ node node_modules/grunt/bin/grunt
+    $ npm start
 
 Scratch
 -------
