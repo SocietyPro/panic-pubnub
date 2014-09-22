@@ -16,10 +16,6 @@ block append body
     //ng-hide="!panicking.panicking"
     div#panicInfo
       h1 PANIC!
-      span(block ng-model="panic.name")
-      span(block ng-model="panic.time")
-      span(block ng-model="panic.system")
-      span(block ng-model="panic.msg")
   section#standby(
   ng-controller="standbyCtrl"
   layout="vertical"
@@ -31,7 +27,8 @@ block append body
     layout-align="space-between"
     )
       include overlay
-      //ng-hide="panicking.panicking"
+      include paniclog
+      span {{panicking.panicking}}
     div#responseContainer(
     layout="horizontal"
     layout-padding

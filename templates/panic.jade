@@ -11,6 +11,7 @@ block append body
   layout="vertical"
   layout-fill
   )
+    include paniclog
     include overlay
     div#panicButton(ng-click="broadcastPanic()") PANIC
     section#text

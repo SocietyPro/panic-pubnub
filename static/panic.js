@@ -1,7 +1,7 @@
 //angular.module("panic", ['ngMaterial', 'pubnub.angular.service'])
 panicMain
-.controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
-,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
+.controller("panicCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService', 'PanicLogService'
+,function ($scope, $rootScope, $element, PubNub, PanicStateService, PanicLogService) {
   console.log('panic controller');
   $scope.panicking = PanicStateService;
   // Prepare to send panics
@@ -31,6 +31,7 @@ panicMain
   $rootScope.$on(PubNub.ngMsgEv('backup'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('got a backup response:', payload);    
+    PanicLogService.logBackup(payload.message);
   });
 
   // Send panics:
@@ -39,7 +40,7 @@ panicMain
     PubNub.ngPublish({
       channel: 'panic',
       message: {
-        panicker: $scope.pilotName,
+        pilot: $scope.pilotName,
         system: $scope.pilotSystem,
         time: new Date().valueOf,
       },

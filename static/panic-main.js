@@ -6,40 +6,59 @@ var panicMain = angular.module("panicMain", ['ngMaterial', 'pubnub.angular.servi
 
 // Idea via http://stackoverflow.com/a/18193159/1380669
 panicMain.service('PanicStateService', function ($rootScope) {
-    var panicking = false;
-    var details = null;
-    return {
-      panicking: panicking,
-      details: details,
-      start: function (payloadMessage) {
-        $('body').attr('panicking', 'true' )
-        console.log('PanicStateService.start()')
-        panicking = true; 
-        details = payloadMessage || {};
-      },
-      stop: function () { 
-        $('body').removeAttr('panicking');
-        console.log('PanicStateService.stop()')
-        panicking = false; 
-      },
-      toggle: function () { panicking = !panicking; },
-    };
+  var panicking = false;
+  var details = null;
+  return {
+    panicking: panicking,
+    start: function () {
+      $('body').attr('panicking', 'true' )
+      console.log('PanicStateService.start()')
+      panicking = true; 
+    },
+    stop: function () { 
+      $('body').removeAttr('panicking');
+      console.log('PanicStateService.stop()')
+      panicking = false; 
+    },
+    toggle: function () { panicking = !panicking; },
+  };
 });
 
-panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
-,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
+panicMain.service('PanicLogService', function($rootScope){
+  var lines = [];
+  return {
+    lines: lines,
+    logBackup: function(message){
+      lines.push({
+        type: 'backup',
+        msg: message,
+      })
+      console.log(lines);
+    },
+    logPanic: function(message){
+      lines.push({
+        type: 'panic',
+        msg: message,
+      })
+      console.log(lines);
+    }
+  }
+})
+
+panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicLogService'
+,function ($scope, $rootScope, $element, PubNub, PanicLogService) {
   console.log('panic-main controller');
 
   //
   // Scope Variables
   //
   $scope.CCPEVE = CCPEVE;
-  //$scope.panicking = PanicStateService;
+  $scope.panicking = PanicStateService;
   $scope.nonIGB = !$('body').attr('data-is-igb');
   $scope.pilotName = $('body').attr('data-pilot-name') || 'Pilot '+ Math.floor(Math.random()*10000);
   $scope.pilotSystem = $('body').attr('data-pilot-system') || 'Unknown system';
   $scope.panicDate = null;
-  $scope.message
+  $scope.paniclog = PanicLogService;
 
   //
   // Scope Methods

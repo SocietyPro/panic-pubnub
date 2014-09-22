@@ -1,7 +1,7 @@
 //angular.module("standby", ['ngMaterial', 'pubnub.angular.service'])
 panicMain
-.controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
-,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
+.controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService', 'PanicLogService'
+,function ($scope, $rootScope, $element, PubNub, PanicStateService, PanicLogService) {
   //$scope.panicking = PanicStateService; // Apparently setting this equal to the Service object auto-watches it
   console.log('standby controller');
   // Prepare to send backup response:
@@ -30,8 +30,8 @@ panicMain
   $rootScope.$on(PubNub.ngMsgEv('panic'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('someone panicked:', payload); 
-    PanicStateService.start(payload.message);
-
+    PanicStateService.start(payload);
+    PanicLogService.logPanic(payload.message);
     //$scope.togglePanic(true);
     //console.log($scope.togglePanic);
     //$scope.togglePanic(true);
@@ -46,7 +46,7 @@ panicMain
       channel: 'backup',
       message: {
         backup: data.backup,
-        responder: $scope.pilotName,
+        pilot: $scope.pilotName,
         system: $scope.pilotSystem,
         time: new Date().valueOf,
       },

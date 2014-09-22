@@ -1,0 +1,11 @@
+div#panicLog(
+layout="vertical"
+)
+  div(
+  ng-repeat="line in paniclog.lines"
+  ng-class="{logline: true, panicLog: line.type==='panic', backupLog: line.type==='backup'}"
+  )
+    span.pilotName{{line.pilot}}  
+    span(ng-if="line.type==='panic'") panicked
+    span(ng-if="line.type==='backup' && line.backup===true") is bringing backup
+    span(ng-if="line.type==='backup' && line.backup===false") declined to bring backup
