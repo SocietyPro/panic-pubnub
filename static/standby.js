@@ -31,7 +31,10 @@ panicMain
     // payload contains message, channel, env...
     console.log('someone panicked:', payload); 
     PanicStateService.start(payload);
-    PanicLogService.logPanic(payload.message);
+    $scope.panicloglines = PanicLogService.logPanic(payload.message);
+    $scope.$apply();
+    //console.log('after returning from panicLogService', $scope.paniclog);
+    console.log('after returning from panicLogService', $scope.panicloglines);
     //$scope.togglePanic(true);
     //console.log($scope.togglePanic);
     //$scope.togglePanic(true);

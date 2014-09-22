@@ -1,11 +1,12 @@
 div#panicLog(
 layout="vertical"
 )
+  //span {{panicloglines | json}}
   div(
-  ng-repeat="line in paniclog.lines"
+  ng-repeat="line in panicloglines"
   ng-class="{logline: true, panicLog: line.type==='panic', backupLog: line.type==='backup'}"
   )
-    span.pilotName{{line.pilot}}  
-    span(ng-if="line.type==='panic'") panicked
-    span(ng-if="line.type==='backup' && line.backup===true") is bringing backup
-    span(ng-if="line.type==='backup' && line.backup===false") declined to bring backup
+    span.pilotName{{line.msg.pilot}}  
+    span.panicked(ng-if="line.type==='panic'") panicked
+    span.backupYes(ng-if="line.type==='backup' && line.msg.backup===true") is bringing backup
+    span.backupNo(ng-if="line.type==='backup' && line.msg.backup===false") declined to bring backup

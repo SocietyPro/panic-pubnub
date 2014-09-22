@@ -31,7 +31,8 @@ panicMain
   $rootScope.$on(PubNub.ngMsgEv('backup'), function(event, payload) {
     // payload contains message, channel, env...
     console.log('got a backup response:', payload);    
-    PanicLogService.logBackup(payload.message);
+    $scope.panicloglines = PanicLogService.logBackup(payload.message);
+    $scope.$apply();
   });
 
   // Send panics:

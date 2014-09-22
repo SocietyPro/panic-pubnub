@@ -1,3 +1,31 @@
+#panicLog {
+  position: absolute;
+  top: 8px; 
+  right: 8px;
+  color: rgba(255,255,255,0.8);
+  z-index: 20;
+}
+#panicLog .logline{
+
+}
+
+#panicLog .pilotName{
+  font-weight: bold;
+  font-family: Roboto, Arial, sans-serif;
+}
+#panicLog .backupYes{
+  color: #00E804;
+  font-weight: bold;
+  font-family: RobotoSlab, inconsolata, consolas, monospace;
+}
+#panicLog .backupNo{
+  font-family: RobotoSlab, inconsolata, consolas, monospace;
+  color: #FF0000;
+}
+#panicLog .panicked{
+  color: #FF530D;
+  font-family: RobotoSlab, inconsolata, consolas, monospace;
+}
 .hidden{
   display: none;
 }

@@ -25,6 +25,15 @@ panicMain.service('PanicStateService', function ($rootScope) {
 });
 
 panicMain.service('PanicLogService', function($rootScope){
+  var testLine = {
+    type: 'backup',
+    msg: {
+      backup: true,
+      pilot: 'Chribba',
+      system: 'Amarr',
+      time: new Date().valueOf,
+    }, 
+  };
   var lines = [];
   return {
     lines: lines,
@@ -34,6 +43,7 @@ panicMain.service('PanicLogService', function($rootScope){
         msg: message,
       })
       console.log(lines);
+      return lines;
     },
     logPanic: function(message){
       lines.push({
@@ -41,12 +51,13 @@ panicMain.service('PanicLogService', function($rootScope){
         msg: message,
       })
       console.log(lines);
+      return lines;
     }
   }
 })
 
-panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicLogService'
-,function ($scope, $rootScope, $element, PubNub, PanicLogService) {
+panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicLogService', 'PanicStateService'
+,function ($scope, $rootScope, $element, PubNub, PanicLogService, PanicStateService) {
   console.log('panic-main controller');
 
   //
@@ -54,11 +65,12 @@ panicMain.controller("panicMainCtrl", ['$scope', '$rootScope', '$element', 'PubN
   //
   $scope.CCPEVE = CCPEVE;
   $scope.panicking = PanicStateService;
+  $scope.paniclog = PanicLogService;
+  //$scope.panicloglines = [];
   $scope.nonIGB = !$('body').attr('data-is-igb');
   $scope.pilotName = $('body').attr('data-pilot-name') || 'Pilot '+ Math.floor(Math.random()*10000);
   $scope.pilotSystem = $('body').attr('data-pilot-system') || 'Unknown system';
   $scope.panicDate = null;
-  $scope.paniclog = PanicLogService;
 
   //
   // Scope Methods
