@@ -5,6 +5,21 @@ block append stylesheets
   link(href='standby.css', rel='stylesheet')
 
 block append body
+  div#scrim
+  div#panicOverlay(
+  layout-fill
+  layout="vertical"
+  layout-align="center center"
+  )
+    div#allClear
+      h1 All Clear
+    //ng-hide="!panicking.panicking"
+    div#panicInfo
+      h1 PANIC!
+      span(block ng-model="panic.name")
+      span(block ng-model="panic.time")
+      span(block ng-model="panic.system")
+      span(block ng-model="panic.msg")
   section#standby(
   ng-controller="standbyCtrl"
   layout="vertical"
@@ -15,23 +30,8 @@ block append body
     layout="vertical" 
     layout-align="space-between"
     )
+      include overlay
       //ng-hide="panicking.panicking"
-      div#allClear(
-      flex 
-      )
-        h1 All Clear
-      //ng-hide="!panicking.panicking"
-      div#panicInfo(
-      flex 
-      layout="vertical" 
-      layout-align="equal-space"
-      )
-        h1 PANIC!
-        span panicking = {{panicking.panicking}}
-        span(block ng-model="panic.name")
-        span(block ng-model="panic.time")
-        span(block ng-model="panic.system")
-        span(block ng-model="panic.msg")
     div#responseContainer(
     layout="horizontal"
     layout-padding

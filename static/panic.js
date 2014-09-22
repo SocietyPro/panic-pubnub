@@ -35,14 +35,13 @@ panicMain
 
   // Send panics:
   $scope.broadcastPanic = function () {
-    var note = prompt('Describe your situation:', 'HALP!');
+    //var note = prompt('Describe your situation:', 'HALP!');
     PubNub.ngPublish({
       channel: 'panic',
       message: {
         panicker: $scope.pilotName,
-        system: $scope.system,
+        system: $scope.pilotSystem,
         time: new Date().valueOf,
-        note: note,
       },
     });
   }

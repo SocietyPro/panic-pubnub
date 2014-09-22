@@ -2,7 +2,7 @@
 panicMain
 .controller("standbyCtrl", ['$scope', '$rootScope', '$element', 'PubNub', 'PanicStateService'
 ,function ($scope, $rootScope, $element, PubNub, PanicStateService) {
-  $scope.panicking = PanicStateService; // Apparently setting this equal to the Service object auto-watches it
+  //$scope.panicking = PanicStateService; // Apparently setting this equal to the Service object auto-watches it
   console.log('standby controller');
   // Prepare to send backup response:
   PubNub.ngGrant({
@@ -47,7 +47,7 @@ panicMain
       message: {
         backup: data.backup,
         responder: $scope.pilotName,
-        system: $scope.system,
+        system: $scope.pilotSystem,
         time: new Date().valueOf,
       },
     }); 
