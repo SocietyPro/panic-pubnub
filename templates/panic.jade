@@ -14,6 +14,6 @@ block append content
     include paniclog
     include overlay
     div#panicButton(ng-click="broadcastPanic()") PANIC
-    section#text
+    //section#text
       span.block#sent Your panic was sent...
       div#responses(ng-repeat="response in responses")
