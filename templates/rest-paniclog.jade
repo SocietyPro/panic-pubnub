@@ -4,9 +4,15 @@ div#panicLog Panic Log:
     class="logline #{msg.type === 'panic' ? 'panicLog' : ''} #{msg.type==='backup' ? 'backupLog' : ''}"
     )
       span.pilotName= msg.pilot
+
       if(msg.type==='panic')
         span.panicked panicked
+        a.backup(href='/action/backup?date=#{msg.date}') Backup
+        a.standdown(href='/action/standdown?date=#{msg.date}') Stand Down
+
       if(msg.type==='backup' && msg.backup===true)
         span.backupYes is bringing backup)
+        a.dismiss(href='/action/dismiss?date=#{msg.date}') Dismiss
       if(msg.type==='backup' && msg.backup===false)
         span.backupNo declined to bring backup
+        a.dismiss(href='/action/dismiss?date=#{msg.date}') Dismiss

@@ -38,6 +38,7 @@ panicMain.service('PanicLogService', function($rootScope){
   return {
     lines: lines,
     logBackup: function(message){
+      console.log("Logging", message)
       lines.push({
         type: 'backup',
         msg: message,
@@ -46,6 +47,7 @@ panicMain.service('PanicLogService', function($rootScope){
       return lines;
     },
     logPanic: function(message){
+      console.log("Logging", message)
       lines.push({
         type: 'panic',
         msg: message,

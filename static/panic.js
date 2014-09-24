@@ -41,9 +41,10 @@ panicMain
     PubNub.ngPublish({
       channel: 'panic',
       message: {
+        type: 'panic',
         pilot: $scope.pilotName,
         system: $scope.pilotSystem,
-        time: new Date().valueOf,
+        date: new Date().valueOf(),
       },
     });
   }

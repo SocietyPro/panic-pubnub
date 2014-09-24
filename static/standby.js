@@ -48,10 +48,11 @@ panicMain
     PubNub.ngPublish({
       channel: 'backup',
       message: {
+        type: 'backup',
         backup: data.backup,
         pilot: $scope.pilotName,
         system: $scope.pilotSystem,
-        time: new Date().valueOf,
+        date: new Date().valueOf(),
       },
     }); 
     PanicStateService.stop();
