@@ -1,0 +1,11 @@
+extends rest-layout
+block append scripts
+  //script(src='panic.js', type='text/javascript')
+block append stylesheets
+  link(href='panic.css', rel='stylesheet')
+
+block append content
+  section#panic
+    include rest-paniclog
+    include rest-overlay
+    a#panicButton(href="/action/panic") PANIC

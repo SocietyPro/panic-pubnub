@@ -1,0 +1,47 @@
+extends rest-layout
+block append scripts
+  script(src='standby.js', type='text/javascript')
+block append stylesheets
+  link(href='standby.css', rel='stylesheet')
+
+block append content
+  div#scrim
+  div#panicOverlay(
+  layout-fill
+  layout="vertical"
+  layout-align="center center"
+  )
+    div#allClear
+      h1 All Clear
+    //ng-hide="!panicking.panicking"
+    div#panicInfo
+      h1 PANIC!
+  section#standby(
+  ng-controller="standbyCtrl"
+  layout="vertical"
+  layout-fill
+  )
+    div#statusContainer(
+    flex
+    layout="vertical" 
+    layout-align="space-between"
+    )
+      include overlay
+      include paniclog
+      span {{panicking.panicking}}
+    div#responseContainer(
+    layout="horizontal"
+    layout-padding
+    )
+      input#standDown(
+      flex,
+      type="button", 
+      value="Stand Down", 
+      ng-click="respond(false)"
+      )
+      input#sendBackup(
+      flex,
+      type="button", 
+      value="Send Backup", 
+      ng-click="respond(true)",
+      )

@@ -1,0 +1,12 @@
+div#panicLog Panic Log:
+  each msg in locals.panicLog
+    div(
+    class="logline #{msg.type === 'panic' ? 'panicLog' : ''} #{msg.type==='backup' ? 'backupLog' : ''}"
+    )
+      span.pilotName= msg.pilot
+      if(msg.type==='panic')
+        span.panicked panicked
+      if(msg.type==='backup' && msg.backup===true)
+        span.backupYes is bringing backup)
+      if(msg.type==='backup' && msg.backup===false)
+        span.backupNo declined to bring backup

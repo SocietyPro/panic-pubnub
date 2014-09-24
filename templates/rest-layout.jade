@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    script(src='bower_components/jquery/dist/jquery.min.js', type='text/javascript')
+    block scripts
+      
+    link(href='panic-main.css', rel='stylesheet')
+    block stylesheets
+
+  body(
+  data-is-trusted=locals.isTrusted
+  data-is-igb=locals.isIGB
+  data-panic-received=locals.panicReceived
+  data-pilot-name = locals.pilot.name || ""
+  data-pilot-system = locals.pilot.system || ""
+  )
+    div#darkBG()
+      if(!locals.isTrusted && locals.isIGB)
+        div.banner.trustBanner(
+        title="Trust..."
+        onclick="CCPEVE.requestTrust('http://localhost:3000')"
+        ) Grant IGB trust to auto populate name and location: click here
+
+        div.banner.refreshBanner.hidden(
+        title="Refresh..."
+        onclick="window.location.refresh()"
+        ) Click to refresh after granting trust
+
+        div.banner.nonIGB.hidden(
+        title="Designed for EVE's In Game Browser"
+        ) Best used in EVE's In Game Browser
+      block content

@@ -6,7 +6,7 @@ layout="vertical"
   ng-repeat="line in panicloglines"
   ng-class="{logline: true, panicLog: line.type==='panic', backupLog: line.type==='backup'}"
   )
-    span.pilotName{{line.msg.pilot}}  
+    span.pilotName {{line.msg.pilot}}  
     span.panicked(ng-if="line.type==='panic'") panicked
     span.backupYes(ng-if="line.type==='backup' && line.msg.backup===true") is bringing backup
     span.backupNo(ng-if="line.type==='backup' && line.msg.backup===false") declined to bring backup
